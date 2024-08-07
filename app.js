@@ -10,10 +10,12 @@ app.use(express.static(path.join(__dirname, 'public')));
 const adminRouter = require('./routes/admin');
 const prodRouter = require('./routes/add-product');
 const contactRouter = require('./routes/contactUs');
+const cartRouter = require('./routes/cart');  // Add this line to include cart routes
 
-app.use( prodRouter);
-app.use( contactRouter);
+app.use(prodRouter);
+app.use(contactRouter);
 app.use(adminRouter);
+app.use(cartRouter);  // Make sure this line is present
 
 app.get('/success', (req, res) => {
     res.sendFile(path.join(__dirname, 'views', 'success.html'));

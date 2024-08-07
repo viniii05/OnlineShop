@@ -1,0 +1,18 @@
+<article class="card product-item">
+    <header class="card__header">
+        <h1 class="product__title">Car</h1>
+    </header>
+    <div class="card__image">
+        <img src="https://images.pexels.com/photos/210019/pexels-photo-210019.jpeg?auto=compress&cs=tinysrgb&w=600" alt="Car">
+    </div>
+    <div class="card__content">
+        <h2 class="product__price">$10</h2>
+        <p class="product__description">A beautiful car.</p>
+    </div>
+    <div class="card__actions">
+        <form action="/add-to-cart" method="POST">
+            <input type="hidden" name="productId" value="car-product-id">
+            <button class="btn">Add to Cart</button>
+        </form>
+    </div>
+</article>
