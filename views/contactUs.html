@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact Us</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/add-product.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="img-div">
+            <img src="../NSkEnhance.png" alt="logo" class="img">
+        </div>
+        <nav class="main-header__nav">
+            <ul class="main-header__item_list">
+                <li class="main-header__items"><a href="/">Shop</a></li>
+                <li class="main-header__items"><a href="/add-product">Add Product</a></li>
+                <li class="main-header__items"><a href="/contactUs">Contact us</a></li>
+                <li class="main-header__items"><a href="/cart">Cart</a></li>
+                <li class="main-header__items"><a href="/adminOnly">Admin Product</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form class="login-form" action="/contactUs" method="post">
+            <div class="form-control">
+                <label for="name">Enter Name: </label>
+                <input type="text" name="name" id="name">
+                <label for="email">Enter Email: </label>
+                <input type="email" name="email" id="email">
+            </div>
+            <button type="submit">Get a Call</button>
+        </form>
+    </main>
+</body>
+</html>

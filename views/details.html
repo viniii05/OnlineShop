@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="img-div">
+            <img src="../NSkEnhance.png" alt="logo" class="img">
+        </div>
+        <nav class="main-header__nav">
+            <ul class="main-header__item_list">
+                <li class="main-header__items"><a href="/">Shop</a></li>
+                <li class="main-header__items"><a href="/add-product">Add Product</a></li>
+                <li class="main-header__items"><a href="/contactUs">Contact us</a></li>
+                <li class="main-header__items"><a href="/cart">Cart</a></li>
+                <li class="main-header__items"><a href="/adminOnly">Admin Product</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="product-detail"></div>
+        <button id="add-to-cart">Add to Cart</button>
+        <script>
+            function getUrlParameter(name) {
+                const urlParams = new URLSearchParams(window.location.search);
+                return urlParams.get(name);
+            }
+
+            const id = getUrlParameter('id');
+            const addToCartButton = document.getElementById('add-to-cart');
+
+            fetch(`/api/products/${id}`)
+                .then(response => response.json())
+                .then(product => {
+                    const productDetail = document.getElementById('product-detail');
+                    if (product) {
+                        productDetail.innerHTML = `
+                            <img src="${product.imageUrl}" alt="${product.title}" style="max-width: 300px;">
+                            <h1>${product.title}</h1>
+                            <p>Price: $${product.price}</p>
+                        `;
+                    } else {
+                        productDetail.innerHTML = '<p>Product not found.</p>';
+                    }
+                })
+                .catch(error => {
+                    console.error('Error fetching product details:', error);
+                    document.getElementById('product-detail').innerHTML = '<p>Failed to load product details.</p>';
+                });
+
+            addToCartButton.addEventListener('click', () => {
+                fetch('/api/cart', {
+                    method: 'POST',
+                    headers: {
+                        'Content-Type': 'application/json'
+                    },
+                    body: JSON.stringify({
+                        productId: id,
+                        quantity: 1 // Adjust as needed
+                    })
+                })
+                .then(response => response.json())
+                .then(result => {
+                    alert(result.message);
+                })
+                .catch(error => {
+                    console.error('Error adding to cart:', error);
+                    alert('Failed to add product to cart.');
+                });
+            });
+        </script>
+    </main>
+</body>
+</html>

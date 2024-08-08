@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Add Product</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/add-product.css">
+    <style>
+        .image-preview {
+            margin-top: 10px;
+            max-width: 300px;
+        }
+    </style>
+</head>
+<body>
+    <header class="main-header">
+        <div class="img-div">
+            <img src="../NSkEnhance.png" alt="logo" class="img">
+        </div>
+        <nav class="main-header__nav">
+            <ul class="main-header__item_list">
+                <li class="main-header__items"><a href="/">Shop</a></li>
+                <li class="main-header__items"><a href="/add-product">Add Product</a></li>
+                <li class="main-header__items"><a href="/contactUs">Contact us</a></li>
+                <li class="main-header__items"><a href="/cart">Cart</a></li>
+                <li class="main-header__items"><a href="/adminOnly">Admin Product</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <form class="product-form" action="/add-product" method="post" enctype="multipart/form-data">
+            <label for="title">Title: </label>
+            <input type="text" name="title" id="title" required>
+            <label for="image">Image: </label>
+            <input type="file" name="image" id="image" required>
+            <div class="image-preview" id="imagePreview">
+                <img src="" alt="Image Preview" id="previewImage">
+            </div>
+            <label for="price">Price: </label>
+            <input type="number" name="price" id="price" required>
+            <form action="/cart" method="POST">
+                <button type="submit">Add Product</button>
+                <input type="hidden" name="productId">
+            </form>
+        </form>
+    </main>
+
+    <script>
+        document.getElementById('image').addEventListener('change', function(event) {
+            const file = event.target.files[0];
+            if (file) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    document.getElementById('previewImage').src = e.target.result;
+                };
+                reader.readAsDataURL(file);
+            }
+        });
+    </script>
+</body>
+</html>
