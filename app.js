@@ -1,8 +1,9 @@
 const express = require('express');
 const path = require('path');
 const fs = require('fs');
-
+const db = require('./util/database')
 const app = express();
+
 
 app.use(express.static(path.join(__dirname, 'public')));
 app.use('/uploads', express.static(path.join(__dirname, 'uploads')));
@@ -17,6 +18,7 @@ const contactUsRoutes = require('./routes/contactUs');
 const shopRoutes = require('./routes/shop');
 const cartRoutes = require('./routes/cart');
 
+db.execute('SELECT * FROM Products')
 // Use routes
 app.use( adminRoutes);
 app.use( addProductRoutes);
