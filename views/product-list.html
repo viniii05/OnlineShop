@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>All Products</title>
-    <link rel="stylesheet" href="/css/main.css"> <!-- Adjust path as necessary -->
+    <title>Product List</title>
+    <link rel="stylesheet" href="/css/main.css">
 </head>
 <body>
     <header class="main-header">
@@ -21,11 +21,26 @@
             </ul>
         </nav>
     </header>
-    
     <main>
         <h1>All Products</h1>
         <ul id="product-list"></ul>
-        <script src="/js/shop.js"></script>
+        <script>
+            fetch('/products')
+                .then(response => response.json())
+                .then(products => {
+                    const productList = document.getElementById('product-list');
+                    products.forEach(product => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <h2>${product.title}</h2>
+                            <img src="${product.imageUrl}" alt="${product.title}" style="width: 150px;">
+                            <p>Price: $${product.price.toFixed(2)}</p>
+                            <a href="/products/${product.id}">View Details</a>
+                        `;
+                        productList.appendChild(li);
+                    });
+                });
+        </script>
     </main>
 </body>
 </html>

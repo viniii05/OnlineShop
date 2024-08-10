@@ -3,14 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Your Cart</title>
     <link rel="stylesheet" href="/css/main.css">
-
 </head>
 <body>
     <header class="main-header">
         <div class="img-div">
-            <img src="../NSkEnhance.png" alt="logo" class="img">
+            <!-- <img src="../NSkEnhance.png" alt="logo" class="img"> -->
         </div>
         <nav class="main-header__nav">
             <ul class="main-header__item_list">
@@ -18,11 +17,34 @@
                 <li class="main-header__items"><a href="/add-product">Add Product</a></li>
                 <li class="main-header__items"><a href="/contactUs">Contact us</a></li>
                 <li class="main-header__items"><a href="/cart">Cart</a></li>
-                <li class="main-header__items"><a href="/adminOnly">Admin Product</a></li>
+                <li class="main-header__items"><a href="/add-product">Admin Product</a></li>
             </ul>
         </nav>
     </header>
-
-    <h1>this is your cart</h1>
+    <main>
+        <h1>Your Cart</h1>
+        <ul id="cart-items"></ul>
+        <script>
+            fetch('/cart')
+                .then(response => response.json())
+                .then(cart => {
+                    const cartItems = document.getElementById('cart-items');
+                    cart.products.forEach(cartProduct => {
+                        const li = document.createElement('li');
+                        li.innerHTML = `
+                            <h2>${cartProduct.productData.title}</h2>
+                            <img src="${cartProduct.productData.imageUrl}" alt="${cartProduct.productData.title}" style="width: 150px;">
+                            <p>Price: $${cartProduct.productData.price.toFixed(2)}</p>
+                            <p>Quantity: ${cartProduct.qty}</p>
+                            <form action="/cart/delete-product" method="POST">
+                                <input type="hidden" name="productId" value="${cartProduct.productData.id}">
+                                <button type="submit">Remove from Cart</button>
+                            </form>
+                        `;
+                        cartItems.appendChild(li);
+                    });
+                });
+        </script>
+    </main>
 </body>
 </html>

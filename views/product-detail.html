@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Product Detail</title>
+    <link rel="stylesheet" href="/css/main.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="img-div">
+            <!-- <img src="../NSkEnhance.png" alt="logo" class="img"> -->
+        </div>
+        <nav class="main-header__nav">
+            <ul class="main-header__item_list">
+                <li class="main-header__items"><a href="/">Shop</a></li>
+                <li class="main-header__items"><a href="/add-product">Add Product</a></li>
+                <li class="main-header__items"><a href="/contactUs">Contact us</a></li>
+                <li class="main-header__items"><a href="/cart">Cart</a></li>
+                <li class="main-header__items"><a href="/admin-product">Admin Product</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <div id="product-detail"></div>
+        <script>
+            const url = window.location.pathname;
+            const productId = url.split('/').pop();
+
+            fetch(`/products/${productId}`)
+                .then(response => response.json())
+                .then(product => {
+                    const productDetail = document.getElementById('product-detail');
+                    productDetail.innerHTML = `
+                        <h1>${product.title}</h1>
+                        <img src="${product.imageUrl}" alt="${product.title}" style="width: 300px;">
+                        <p>${product.description}</p>
+                        <p>Price: $${product.price.toFixed(2)}</p>
+                        <form action="/cart" method="POST">
+                            <input type="hidden" name="productId" value="${product.id}">
+                            <button type="submit">Add to Cart</button>
+                        </form>
+                    `;
+                });
+        </script>
+    </main>
+</body>
+</html>

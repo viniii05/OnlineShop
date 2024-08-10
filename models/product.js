@@ -1,45 +1,29 @@
-// models/products.js
-const fs = require('fs');
-const path = require('path');
-const { v4: uuidv4 } = require('uuid'); // for generating unique IDs
-
-const filePath = path.join(__dirname, '..', 'data', 'products.json');
+// models/product.js
+const db = require('../util/database');
 
 module.exports = class Product {
-    constructor(title, imageUrl, price) {
-        this.id = uuidv4();  // Generate a unique ID
+    constructor(id, title, imageUrl, description, price) {
+        this.id = id;
         this.title = title;
         this.imageUrl = imageUrl;
+        this.description = description;
         this.price = price;
     }
 
-    static fetchAll(callback) {
-        fs.readFile(filePath, 'utf8', (err, data) => {
-            if (err) {
-                console.error('Error reading product data:', err);
-                callback([]);
-                return;
-            }
-            const products = JSON.parse(data);
-            callback(products);
-        });
-    }
-
-    static findById(id, callback) {
-        Product.fetchAll(products => {
-            const product = products.find(p => p.id === id);
-            callback(product);
-        });
-    }
-
     save() {
-        Product.fetchAll(products => {
-            products.push(this);
-            fs.writeFile(filePath, JSON.stringify(products, null, 2), err => {
-                if (err) {
-                    console.error('Error saving product data:', err);
-                }
-            });
-        });
+        console.log('Saving product:', this.title, this.price, this.description, this.imageUrl);
+        return db.execute(
+            'INSERT INTO products (title, price, description, imageUrl) VALUES (?, ?, ?, ?)',
+            [this.title, this.price, this.description, this.imageUrl]
+
+        );
+
     }
+    static deleteById(id) {}
+    static fetchAll() {
+        return db.execute('SELECT * FROM products');
+    }
+    static deleteById(id) {
+        return db.execute('DELETE FROM products WHERE id = ?', [id]);
+      }
 };

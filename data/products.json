@@ -1,14 +1,1 @@
-[
-  {
-    "id": "32dcc77b-b3ac-4dd3-9c41-3fa5562b12a5",
-    "title": "car",
-    "imageUrl": "uploads\\e844a4482a110963e6fa4009c1e1399d",
-    "price": "21"
-  },
-  {
-    "id": "8541296f-eb7f-4509-bbce-191f275e340d",
-    "title": "mobile",
-    "imageUrl": "uploads\\ed920090c0fbc5c80e3e62fc5ca8e0a3",
-    "price": "11"
-  }
-]
+[{"title":"book"},{"id" : "123","title":"bottle","imageUrl":"https://images.pexels.com/photos/1545743/pexels-photo-1545743.jpeg?auto=compress&cs=tinysrgb&w=600"}]
