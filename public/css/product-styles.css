@@ -1,62 +1,79 @@
-/* Ensure this file is linked in your HTML head */
+/* Main Section for All Products */
+main {
+    padding: 2rem;
+    background-color: #f7f7f7;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
 
-.product-list {
+h1 {
+    font-size: 2rem;
+    color: #333;
+    margin-bottom: 1.5rem;
+}
+
+#product-list {
+    list-style: none;
+    padding: 0;
     display: flex;
     flex-wrap: wrap;
-    gap: 16px;
-    /* padding: 20px; */
+    gap: 1.5rem;
     justify-content: center;
 }
 
-.product-box {
+#product-list li {
+    background-color: #fff;
     border: 1px solid #ddd;
-    border-radius: 8px;
-    padding: 10px;
-    width: 250px; /* Adjust width as needed */
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 5px;
+    padding: 1rem;
+    width: 250px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
     text-align: center;
-    background-color: #eeebeb;
-    transition: transform 0.3s ease;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
 }
 
-.product-box:hover {
-    transform: scale(1.05);
+#product-list li:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.15);
 }
 
-.product-image {
-    width:60%;
-    height: auto;
-    border-radius: 2px;
-    margin-bottom: 10px;
+#product-list img {
+    max-width: 100%;
+    border-radius: 5px;
+    margin-bottom: 1rem;
 }
 
-.product-title {
-    font-size: 1.5em;
-    margin: 0 0 10px 0;
+#product-list h2 {
+    font-size: 1.25rem;
+    color: #555;
+    margin-bottom: 0.5rem;
 }
 
-.product-description {
-    font-size: 1em;
-    color: #666;
+#product-list p {
+    font-size: 1rem;
+    color: #777;
+    margin-bottom: 1rem;
 }
-.btn, a {
-    text-decoration: none;
-    display: flex;
-    flex-wrap: wrap;
-    background-color: #e6afaf;
+
+#product-list form {
+    display: inline-block;
+    margin-right: 0.5rem;
+}
+
+#product-list button {
+    background-color: #28a745;
     color: #fff;
     border: none;
-    padding: 10px 20px;
     border-radius: 5px;
+    padding: 0.5rem 1rem;
     cursor: pointer;
-    text-align: center;
-    font-size: 16px;
+    font-size: 1rem;
     transition: background-color 0.3s ease;
 }
 
-
-
-.btn:hover {
-    background-color: #959595;
+#product-list button:hover {
+    background-color: #218838;
 }
+
 

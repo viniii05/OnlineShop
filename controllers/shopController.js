@@ -4,25 +4,27 @@ const Product = require('../models/product');
 const Cart = require('../models/cart');
 
 exports.getIndex = (req, res, next) => {
-  res.sendFile(path.join(__dirname, '../views/shop.html'));
+  res.sendFile(path.join(__dirname, '../','views', 'shop.html'));
+  
 };
 
 exports.getProductData = (req, res, next) => {
-  Product.fetchAll()
-    .then(([rows]) => {
-      res.json(rows);
+  Product.findAll()
+    .then(products => {
+      res.json(products); 
     })
     .catch(err => {
-      console.error(err);
-      res.status(500).send('Server Error');
+      console.error('Error fetching products:', err);
+      res.status(500).json({ error: 'Failed to fetch products' });
     });
+  
 };
 
 exports.getProducts = (req, res, next) => {
   exports.getProducts = (req, res, next) => {
     Product.fetchAll()
       .then(([rows, fieldData]) => {
-        res.render('shop', { // Use the correct view name
+        res.render('shop', { 
           prods: rows,
           pageTitle: 'All Products',
           path: '/products'
@@ -32,20 +34,20 @@ exports.getProducts = (req, res, next) => {
   };
 };
 
-exports.getProduct = (req, res, next) => {
+;exports.getProduct = (req, res, next) => {
   const prodId = req.params.productId;
   Product.findById(prodId)
-    .then(([product]) => {
-      if (product.length > 0) {
-        const prod = product[0];
+    .then((product) => {
+      if (product) {
         res.send(`
           <!DOCTYPE html>
           <html lang="en">
           <head>
               <meta charset="UTF-8">
               <meta name="viewport" content="width=device-width, initial-scale=1.0">
-              <title>${prod.title}</title>
+              <title>${product.title}</title>
               <link rel="stylesheet" href="/css/main.css">
+              <link rel="stylesheet" href="/css/product-styles.css">
           </head>
           <body>
               <header class="main-header">
@@ -63,11 +65,11 @@ exports.getProduct = (req, res, next) => {
                   </nav>
               </header>
               <main>
-                  <h1>${prod.title}</h1>
-                  <img src="${prod.imageUrl}" alt="${prod.title}" style="width: 300px;">
-                  <p>${prod.description}</p>
-                  <p>Price: $${prod.price.toFixed(2)}</p>
-                  <button onclick="addToCart('${prod.id}')">Add to Cart</button>
+                  <h1>${product.title}</h1>
+                  <img src="${product.imageUrl}" alt="${product.title}" style="width: 300px;">
+                  <p>${product.description}</p>
+                  <p>Price: $${product.price.toFixed(2)}</p>
+                  <button onclick="addToCart('${product.id}')">Add to Cart</button>
                   <script>
                       function addToCart(productId) {
                           fetch('/cart', {
@@ -96,10 +98,10 @@ exports.getProduct = (req, res, next) => {
       }
     })
     .catch(err => {
-      console.error(err);
+      console.error('Error fetching product:', err);
       res.status(500).send('Server Error');
     });
-};
+}
 
 exports.getCart = (req, res, next) => {
   Cart.getCart(cart => {
@@ -152,3 +154,4 @@ exports.getOrders = (req, res, next) => {
 exports.getCheckout = (req, res, next) => {
   res.sendFile(path.join(__dirname, '../views/checkout.html'));
 };
+

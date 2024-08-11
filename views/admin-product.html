@@ -1,0 +1,57 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Admin Products</title>
+    <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/product-styles.css">
+</head>
+<body>
+    <header class="main-header">
+        <div class="img-div">
+            <!-- <img src="../NSkEnhance.png" alt="logo" class="img"> -->
+        </div>
+        <nav class="main-header__nav">
+            <ul class="main-header__item_list">
+                <li class="main-header__items"><a href="/">Shop</a></li>
+                <li class="main-header__items"><a href="/add-product">Add Product</a></li>
+                <li class="main-header__items"><a href="/contactUs">Contact us</a></li>
+                <li class="main-header__items"><a href="/cart">Cart</a></li>
+                <li class="main-header__items"><a href="/admin-product">Admin Product</a></li>
+            </ul>
+        </nav>
+    </header>
+    <main>
+        <h1>Admin Products</h1>
+        <ul id="product-list"></ul>
+        <script>
+            document.addEventListener('DOMContentLoaded', () => {
+                // Adjust this data format based on the actual data returned
+                const products = [
+                    {"id":1,"title":"new book","price":2,"imageUrl":"https://img.freepik.com/free-photo/book-library-with-open-textbook_1150-5920.jpg?size=626&ext=jpg","description":"new book","createdAt":"2024-08-11T10:05:43.000Z","updatedAt":"2024-08-11T10:05:43.000Z"}
+                ];
+
+                const productList = document.getElementById('product-list');
+                products.forEach(product => {
+                    const li = document.createElement('li');
+                    li.innerHTML = `
+                        <h2>${product.title}</h2>
+                        <img src="${product.imageUrl}" alt="${product.title}" style="width: 150px;">
+                        <p>Price: $${product.price.toFixed(2)}</p>
+                        <form action="/delete-product" method="POST" style="display: inline;">
+                            <input type="hidden" name="productId" value="${product.id}">
+                            <button type="submit">Delete</button>
+                        </form>
+                        <form action="/edit-product" method="GET" style="display: inline;">
+                            <input type="hidden" name="productId" value="${product.id}">
+                            <button type="submit">Edit</button>
+                        </form>
+                    `;
+                    productList.appendChild(li);
+                });
+            });
+        </script>
+    </main>
+</body>
+</html>
