@@ -192,6 +192,7 @@ exports.postDeleteProduct = (req, res, next) => {
 };
 
 
+
 // exports.getProducts = (req, res, next) => {
 //     res.send(`
 //         <!DOCTYPE html>

@@ -5,6 +5,8 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Your Cart</title>
     <link rel="stylesheet" href="/css/main.css">
+    <link rel="stylesheet" href="/css/product-styles.css">
+
 </head>
 <body>
     <header class="main-header">
@@ -25,25 +27,27 @@
         <h1>Your Cart</h1>
         <ul id="cart-items"></ul>
         <script>
-            fetch('/cart')
-                .then(response => response.json())
+            // Fetch the cart data from the server
+            fetch('/api/cart-data')
+                .then(response => response.json()) // Parse the JSON from the response
                 .then(cart => {
-                    const cartItems = document.getElementById('cart-items');
-                    cart.products.forEach(cartProduct => {
-                        const li = document.createElement('li');
+                    const cartItems = document.getElementById('cart-items'); // Get the UL element to insert items
+                    cart.products.forEach(product => { // Loop through each product in the cart
+                        const li = document.createElement('li'); // Create a new list item
                         li.innerHTML = `
-                            <h2>${cartProduct.productData.title}</h2>
-                            <img src="${cartProduct.productData.imageUrl}" alt="${cartProduct.productData.title}" style="width: 150px;">
-                            <p>Price: $${cartProduct.productData.price.toFixed(2)}</p>
-                            <p>Quantity: ${cartProduct.qty}</p>
-                            <form action="/cart/delete-product" method="POST">
-                                <input type="hidden" name="productId" value="${cartProduct.productData.id}">
+                            <h2>${product.title}</h2>
+                            <img src="${product.imageUrl}" alt="${product.title}" style="width: 150px;">
+                            <p>Price: $${product.price.toFixed(2)}</p>
+                            <p>Quantity: ${product.cartItem.quantity}</p>
+                            <form action="/cart-delete-item" method="POST">
+                                <input type="hidden" name="productId" value="${product.id}">
                                 <button type="submit">Remove from Cart</button>
                             </form>
                         `;
-                        cartItems.appendChild(li);
+                        cartItems.appendChild(li); // Append the list item to the UL
                     });
-                });
+                })
+                .catch(error => console.error('Error fetching cart:', error)); // Handle any errors
         </script>
     </main>
 </body>

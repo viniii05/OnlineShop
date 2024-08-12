@@ -17,7 +17,9 @@ router.get('/products', shopController.getProducts);
 
 router.get('/products/:productId', shopController.getProduct);
 
-router.get('/cart', shopController.getCart);
+ // Serves the cart.html file
+ router.get('/api/cart-data', shopController.getCartData);
+router.get('/cart', shopController.getCartPage);
 
 router.post('/cart', shopController.postCart);
 
