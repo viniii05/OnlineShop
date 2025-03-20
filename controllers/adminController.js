@@ -17,7 +17,7 @@ exports.postAddProduct = (req, res, next) => {
         imageUrl: imageUrl,
         description: description
     }).then(result => {
-        console.log(result);
+        
         res.redirect('/admin-product');
     }).catch(err => console.log(err));
 };
